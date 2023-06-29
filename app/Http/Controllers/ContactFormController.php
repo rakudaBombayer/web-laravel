@@ -11,8 +11,11 @@ class ContactFormController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('contacts.index');
+    {   
+        $contacts = ContactForm::select('id', 'name', 'title', 'created_at')
+        ->get();
+        
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -29,7 +32,7 @@ class ContactFormController extends Controller
     public function store(Request $request)
     {
         // dd($request, $request->name);
-        
+
         ContactForm::create([
             'name' => $request->name,
             'title' => $request->title,
